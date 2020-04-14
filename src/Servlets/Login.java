@@ -32,7 +32,7 @@ public class Login extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if(request.getSession().getAttribute("userID") == null) {			
-			RequestDispatcher view = request.getRequestDispatcher("index.html");
+			RequestDispatcher view = request.getRequestDispatcher("index.jsp");
 			view.forward(request, response);
 		}else {
 			RequestDispatcher view = request.getRequestDispatcher("perfil.jsp");
@@ -47,17 +47,16 @@ public class Login extends HttpServlet {
 		String senhaHash = convertMD5(senha);
 		Usuario usuario = usuarioService.carregarPorEmailSenha(email, senhaHash);
 		
-		System.out.println(usuario.toString());
-		
 		if(usuario.getUserID() > 0) {
+			request.getSession().setAttribute("errors", null);
 			request.getSession().setAttribute("userID", usuario.getUserID());
 			request.getSession().setAttribute("nome", usuario.getNome());
 			request.getSession().setAttribute("email", usuario.getEmail());
 			
-			RequestDispatcher view = request.getRequestDispatcher("perfil.jsp");
-			view.forward(request, response);
+			response.sendRedirect("perfil.jsp");
 		}else {
-			response.getWriter().append("usuario não encontrado");
+			request.getSession().setAttribute("errors", "Combinação incorreta");
+			response.sendRedirect("index.jsp");
 		}	
 		
 	}

@@ -31,7 +31,7 @@ public class Logout extends HttpServlet {
 		request.getSession().setAttribute("userID", null);
 		request.getSession().setAttribute("nome", null);
 		request.getSession().setAttribute("email", null);
-		response.sendRedirect("index.html");
+		response.sendRedirect("index.jsp");
 	}
 
 }
