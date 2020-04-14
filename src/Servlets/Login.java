@@ -31,8 +31,13 @@ public class Login extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.setStatus(404);
-		response.getWriter().append("Erro 404");
+		if(request.getSession().getAttribute("userID") == null) {			
+			RequestDispatcher view = request.getRequestDispatcher("index.html");
+			view.forward(request, response);
+		}else {
+			RequestDispatcher view = request.getRequestDispatcher("perfil.jsp");
+			view.forward(request, response);
+		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
