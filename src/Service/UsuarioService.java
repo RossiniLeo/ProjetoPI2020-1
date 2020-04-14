@@ -13,4 +13,4 @@ public class UsuarioService {
 	public Usuario carregar(int id) {
 		return usuarioDao.carregar(id);
 	}
-}
+}	

@@ -37,7 +37,7 @@ public class UsuarioDAO {
 	
 	public Usuario carregar(int id) {
 		Usuario Usuario = null;
-		String sqlSelect = "SELECT * FROM Usuario WHERE Usuario.id = ?";
+		String sqlSelect = "SELECT nome,email,senha FROM Usuario WHERE Usuario.userID = ?";
 		try (Connection conn = ConnectionFactory.obtemConexao();
 				PreparedStatement stm = conn.prepareStatement(sqlSelect);) {
 			stm.setInt(1, id);
