@@ -3,6 +3,7 @@ package Servlets;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -47,7 +48,9 @@ public class Login extends HttpServlet {
 			request.getSession().setAttribute("userID", usuario.getUserID());
 			request.getSession().setAttribute("nome", usuario.getNome());
 			request.getSession().setAttribute("email", usuario.getEmail());
-			response.getWriter().append("Logado").append(request.getContextPath());
+			
+			RequestDispatcher view = request.getRequestDispatcher("perfil.jsp");
+			view.forward(request, response);
 		}else {
 			response.getWriter().append("usuario não encontrado");
 		}	
