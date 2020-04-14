@@ -30,15 +30,28 @@ public class Login extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.getWriter().append("aaa").append(request.getContextPath());
+		response.setStatus(404);
+		response.getWriter().append("Erro 404");
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		UsuarioService usuarioService = new UsuarioService();
 		String email = request.getParameter("email");
 		String senha = request.getParameter("senha");
 		String senhaHash = convertMD5(senha);
+		Usuario usuario = usuarioService.carregarPorEmailSenha(email, senhaHash);
 		
-		response.getWriter().append(senhaHash).append(request.getContextPath());
+		System.out.println(usuario.toString());
+		
+		if(usuario.getUserID() > 0) {
+			request.getSession().setAttribute("userID", usuario.getUserID());
+			request.getSession().setAttribute("nome", usuario.getNome());
+			request.getSession().setAttribute("email", usuario.getEmail());
+			response.getWriter().append("Logado").append(request.getContextPath());
+		}else {
+			response.getWriter().append("usuario não encontrado");
+		}	
+		
 	}
 
 	public String convertMD5(String senha) {

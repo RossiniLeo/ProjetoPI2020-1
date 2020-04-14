@@ -34,6 +34,29 @@ public class UsuarioDAO {
 		return Usuario.getUserID();
 	}
 	
+	public Usuario carregarPorEmailSenha(String email, String senha) {
+		Usuario usuario = null;
+		String sqlSelect = "SELECT userID,nome FROM Usuario WHERE email = ? AND senha = ?";
+		try (Connection conn = ConnectionFactory.obtemConexao();
+				PreparedStatement stm = conn.prepareStatement(sqlSelect);) {
+			stm.setString(1, email);
+			stm.setString(2, senha);
+			try (ResultSet rs = stm.executeQuery();) {
+				if (rs.next()) {
+					usuario = new Usuario(rs.getInt("userID"), rs.getString("nome"), email, senha);
+				} else {
+					usuario = new Usuario(-1,null,null,null);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		} catch (SQLException e1) {
+			System.out.print(e1.getStackTrace());
+		}
+		
+		return usuario;
+	}
+	
 	
 	public Usuario carregar(int id) {
 		Usuario Usuario = null;

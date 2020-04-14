@@ -14,7 +14,7 @@ public class UsuarioService {
 		return usuarioDao.carregar(id);
 	}
 	
-	public void carregarPorEmailSenha() {
-		
+	public Usuario carregarPorEmailSenha(String email, String senha) {
+		return usuarioDao.carregarPorEmailSenha(email, senha);
 	}
 }	
