@@ -18,6 +18,7 @@
 			<button type='submit'>Entrar</button>
 		</form>
 	
+	<a href = 'cadastro.html'>Cadastro</a>
 	
 	</body>
 </html>

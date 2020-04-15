@@ -44,7 +44,7 @@ public class Login extends HttpServlet {
 		UsuarioService usuarioService = new UsuarioService();
 		String email = request.getParameter("email");
 		String senha = request.getParameter("senha");
-		String senhaHash = convertMD5(senha);
+		String senhaHash = usuarioService.convertMD5(senha);
 		Usuario usuario = usuarioService.carregarPorEmailSenha(email, senhaHash);
 		
 		if(usuario.getUserID() > 0) {
@@ -58,23 +58,6 @@ public class Login extends HttpServlet {
 			request.getSession().setAttribute("errors", "Combinação incorreta");
 			response.sendRedirect("index.jsp");
 		}	
-		
-	}
-
-	public String convertMD5(String senha) {
-		try {
-		    MessageDigest m = MessageDigest.getInstance("MD5");
-		  
-		    m.update( senha.getBytes(), 0 , senha.length() );
-		              
-		    byte[] digest = m.digest();
-		          
-		    String hexa = new BigInteger(1,digest).toString(16);
-		              
-		    return hexa;
-		} catch (NoSuchAlgorithmException e) {
-		    return null;
-		}
 		
 	}
 	
