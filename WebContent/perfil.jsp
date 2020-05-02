@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,7 +17,9 @@ Nome: <%=nome %><br>
 <%String email = (String)session.getAttribute("email"); %>
 Email: <%=email %><br>
 
-<a href='logout.do'>Encerrar Sessão</a>
+<a href='perguntas.jsp'>Adicionar pergunta</a>
+
+<a href='logout.do'>Encerrar SessÃ£o</a>
 
 </body>
 </html>
