@@ -34,9 +34,11 @@ public class Cadastro extends HttpServlet {
 		String nome = request.getParameter("nome");
 		String senha = usuarioService.convertMD5(request.getParameter("senha"));
 		
-		usuarioService.criar(new Usuario(-1,nome,email,senha));
+		int userID = usuarioService.criar(new Usuario(-1,nome,email,senha));
 		
 		response.sendRedirect("index.jsp");
+		
+		
 	}
 
 }

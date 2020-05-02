@@ -18,9 +18,10 @@
 			<button type='submit'>Entrar</button>
 		</form>
 	
-	<a href = 'cadastro.html'>Cadastro</a>
+	<a href = 'cadastro.jsp'>Cadastro</a>
 	
 	</body>
 </html>
 
 
+559

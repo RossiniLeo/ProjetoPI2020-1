@@ -10,8 +10,8 @@ import Model.Usuario;
 public class UsuarioService {
 	private UsuarioDAO usuarioDao = new UsuarioDAO();
 	
-	public void criar(Usuario usuario) {
-		usuarioDao.criar(usuario);
+	public int criar(Usuario usuario) {
+		return usuarioDao.criar(usuario);
 	}
 	
 	public Usuario carregar(int id) {
