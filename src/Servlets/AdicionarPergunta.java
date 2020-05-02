@@ -14,7 +14,7 @@ import Model.Post;
 /**
  * Servlet implementation class Perguntas
  */
-@WebServlet("/adicionarperguntas.do")
+@WebServlet("/adicionarpergunta.do")
 public class AdicionarPergunta extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -33,7 +33,7 @@ public class AdicionarPergunta extends HttpServlet {
 		Object userID = request.getSession().getAttribute("userID");
 		
 		if(userID != null) {
-			RequestDispatcher view = request.getRequestDispatcher("adicionarperguntas.jsp");
+			RequestDispatcher view = request.getRequestDispatcher("adicionarpergunta.jsp");
 			view.forward(request, response);
 		}else {
 			response.sendRedirect("session.do");
