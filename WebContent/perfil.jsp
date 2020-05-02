@@ -17,7 +17,7 @@ Nome: <%=nome %><br>
 <%String email = (String)session.getAttribute("email"); %>
 Email: <%=email %><br>
 
-<a href='perguntas.do'>Adicionar pergunta</a>
+<a href='adicionarpergunta.do'>Adicionar pergunta</a>
 
 <a href='logout.do'>Encerrar Sessão</a>
 

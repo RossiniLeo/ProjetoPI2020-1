@@ -47,7 +47,9 @@ public class Login extends HttpServlet {
 		String senhaHash = usuarioService.convertMD5(senha);
 		Usuario usuario = usuarioService.carregarPorEmailSenha(email, senhaHash);
 		
-		if(usuario.getUserID() > 0) {
+		boolean isLogin = usuario.getUserID() > 0;
+		
+		if(isLogin) {
 			request.getSession().setAttribute("errors", null);
 			request.getSession().setAttribute("userID", usuario.getUserID());
 			request.getSession().setAttribute("nome", usuario.getNome());
@@ -56,7 +58,7 @@ public class Login extends HttpServlet {
 			request.setAttribute("errors", "Combinação incorreta");
 		}	
 		
-		RequestDispatcher view = request.getRequestDispatcher(usuario.getUserID() > 0 ? "perfil.jsp" : "index.jsp");
+		RequestDispatcher view = request.getRequestDispatcher( isLogin ? "perfil.jsp" : "index.jsp");
 		view.forward(request, response);
 		
 	}

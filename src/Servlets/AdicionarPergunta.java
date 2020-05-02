@@ -14,14 +14,14 @@ import Model.Post;
 /**
  * Servlet implementation class Perguntas
  */
-@WebServlet("/perguntas.do")
-public class Perguntas extends HttpServlet {
+@WebServlet("/adicionarperguntas.do")
+public class AdicionarPergunta extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Perguntas() {
+    public AdicionarPergunta() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,7 +33,7 @@ public class Perguntas extends HttpServlet {
 		Object userID = request.getSession().getAttribute("userID");
 		
 		if(userID != null) {
-			RequestDispatcher view = request.getRequestDispatcher("perguntas.jsp");
+			RequestDispatcher view = request.getRequestDispatcher("adicionarperguntas.jsp");
 			view.forward(request, response);
 		}else {
 			response.sendRedirect("session.do");
