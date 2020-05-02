@@ -8,7 +8,7 @@
 	</head>
 	
 	<body>
-	<%String errors = (String)session.getAttribute("errors"); %>
+	<%String errors = (String)request.getAttribute("errors"); %>
 	<% if(errors != null){ %>
 		<%= errors %>
 	<%} %>

@@ -52,12 +52,12 @@ public class Login extends HttpServlet {
 			request.getSession().setAttribute("userID", usuario.getUserID());
 			request.getSession().setAttribute("nome", usuario.getNome());
 			request.getSession().setAttribute("email", usuario.getEmail());
-			
-			response.sendRedirect("perfil.jsp");
 		}else {
-			request.getSession().setAttribute("errors", "Combinação incorreta");
-			response.sendRedirect("index.jsp");
+			request.setAttribute("errors", "Combinação incorreta");
 		}	
+		
+		RequestDispatcher view = request.getRequestDispatcher(usuario.getUserID() > 0 ? "perfil.jsp" : "index.jsp");
+		view.forward(request, response);
 		
 	}
 	

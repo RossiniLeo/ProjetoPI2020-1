@@ -1,6 +1,8 @@
 package Servlets;
 
 import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -28,7 +30,15 @@ public class Perguntas extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		Object userID = request.getSession().getAttribute("userID");
+		
+		if(userID != null) {
+			RequestDispatcher view = request.getRequestDispatcher("perguntas.jsp");
+			view.forward(request, response);
+		}else {
+			response.sendRedirect("session.do");
+		}
+			
 	}
 
 	/**
