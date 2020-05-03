@@ -20,13 +20,26 @@
 				<%for(int i = 0; i < 10;i++){ %>
 					<% corpo += " "+palavras[i]; %>
 				<% } %>
+				<%= corpo %>...
 			<% }else{ %>
 				<% corpo = post.getCorpo(); %>
+				<%= corpo %>
 			<% } %>
-			<%= corpo %>...
 			<hr/>
 		</div>
 	<% } %>
-	<%int paginas =  (int) request.getAttribute("qtdPaginas"); %>
+	<%int qtdPaginas =  (int) request.getAttribute("qtdPaginas"); %>
+	<%int paginaAtual = (int) request.getAttribute("pagina"); %>
+	<% if(paginaAtual > 10){ %>
+		<%int comeco = ((paginaAtual/10) * 10); %>
+		<%boolean validacao = qtdPaginas/10 == paginaAtual/10; %>
+		<%for(int i =  (validacao ? comeco-1 : comeco);i <= (validacao? qtdPaginas : comeco + 10);i++){%>
+		<a href="perguntas.do?pagina=<%=i %>"><%=i %></a>
+		<% } %>
+	<% }else{ %>
+		<%for(int i = 1;i <= 11;i++){%>
+		<a href="perguntas.do?pagina=<%=i %>"><%=i %></a>
+		<% } %>
+	<% } %>
 </body>
 </html>

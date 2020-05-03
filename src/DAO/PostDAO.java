@@ -36,7 +36,6 @@ public class PostDAO {
 	
 	public ArrayList<Post> carregar(int pagina) {
 		int comeco = (pagina * 10) - 10;
-		System.out.println("Começo: "+comeco);
 		ArrayList<Post> posts = new ArrayList<Post>();
 		String sqlRead = "SELECT * FROM post LIMIT ?,?";
 		try (Connection conn = ConnectionFactory.obtemConexao();
@@ -46,7 +45,6 @@ public class PostDAO {
 			stm.execute();
 			try(ResultSet rs = stm.executeQuery()) {
 				while(rs.next()){
-					System.out.println(rs.getInt("postID"));
 					Post post = new Post(
 							rs.getInt("postID"),
 							rs.getInt("userID"),

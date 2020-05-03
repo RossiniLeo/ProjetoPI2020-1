@@ -53,7 +53,7 @@ public class AdicionarPergunta extends HttpServlet {
 		Post post = new Post(userID,titulo,corpo);
 		post.setPostID(new PostService().criar(post));
 		
-		response.getWriter().append("Seu post foi publicado com sucesso!");
+		response.sendRedirect("perguntas.do");
 	}
 
 }

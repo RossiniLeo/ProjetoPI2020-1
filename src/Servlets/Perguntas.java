@@ -36,6 +36,8 @@ public class Perguntas extends HttpServlet {
 		String paginaParam = request.getParameter("pagina");
 		
 		int pagina = paginaParam == null ? 1 : Integer.parseInt(paginaParam);
+		
+		request.setAttribute("pagina",pagina);
 
 		ArrayList<Post> posts = new PostService().carregar(pagina);
 		request.setAttribute("Posts", posts);
