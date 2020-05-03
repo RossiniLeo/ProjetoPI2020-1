@@ -9,6 +9,7 @@ public class Post {
 	private Date dataPost;
 	private String titulo;
 	private String corpo;
+	private Date dataAtualizacao;
 	
 	public Post() {}
 	
@@ -18,12 +19,13 @@ public class Post {
 		setCorpo(corpo);
 	}
 	
-	public Post(int postID, int userID, Date dataPost,String titulo, String corpo) {
+	public Post(int postID, int userID, Date dataPost,String titulo, String corpo, Date dataAtualizacao) {
 		setPostID(postID);
 		setUserID(userID);
 		setDataPost(dataPost);
 		setTitulo(titulo);
 		setCorpo(corpo);
+		setDataAtualizacao(dataAtualizacao);
 	}
 
 	public int getPostID() {
@@ -46,6 +48,10 @@ public class Post {
 		return corpo;
 	}
 	
+	public Date getDataAtualizacao() {
+		return dataAtualizacao;
+	}
+	
 	public void setPostID(int postID) {
 		this.postID = postID;
 	}
@@ -64,5 +70,9 @@ public class Post {
 	
 	public void setCorpo(String corpo) {
 		this.corpo = corpo;
+	}
+	
+	public void setDataAtualizacao(Date dataAtualizacao) {
+		this.dataAtualizacao = dataAtualizacao;
 	}
 }

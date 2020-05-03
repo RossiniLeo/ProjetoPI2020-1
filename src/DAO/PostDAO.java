@@ -11,7 +11,7 @@ import Model.Post;
 public class PostDAO {
 	
 	public int criar(Post post) {
-		String sqlInsert = "INSERT INTO post VALUES(null, ?, ?, ?, ?)";
+		String sqlInsert = "INSERT INTO post VALUES(null, ?, ?, ?, ?, null)";
 		try (Connection conn = ConnectionFactory.obtemConexao();
 				PreparedStatement stm = conn.prepareStatement(sqlInsert);) {
 			stm.setInt(1, post.getUserID());
@@ -50,7 +50,8 @@ public class PostDAO {
 							rs.getInt("userID"),
 							rs.getDate("dataPost"),
 							rs.getString("titulo"),
-							rs.getString("corpo")
+							rs.getString("corpo"),
+							rs.getDate("dataAtualizacao")
 					);
 					posts.add(post);
 				}
@@ -105,7 +106,8 @@ public class PostDAO {
 							rs.getInt("userID"),
 							rs.getDate("dataPost"),
 							rs.getString("titulo"),
-							rs.getString("corpo")
+							rs.getString("corpo"),
+							rs.getDate("dataAtualizacao")
 					);
 					posts.add(post);
 				}
@@ -162,7 +164,8 @@ public class PostDAO {
 							rs.getInt("userID"),
 							rs.getDate("dataPost"),
 							rs.getString("titulo"),
-							rs.getString("corpo")
+							rs.getString("corpo"),
+							rs.getDate("dataAtualizacao")
 					);
 					return post;
 				}
@@ -189,4 +192,20 @@ public class PostDAO {
 		return false;
 	}
 
+	public boolean atualizar(Post post) {
+		String sqlUpdate = "UPDATE post SET titulo = ?, corpo = ?, dataAtualizacao = ? WHERE postID = ? ";
+		try (Connection conn = ConnectionFactory.obtemConexao();
+				PreparedStatement stm = conn.prepareStatement(sqlUpdate);) {
+			stm.setString(1, post.getTitulo());
+			stm.setString(2, post.getCorpo());
+			stm.setDate(3, post.getDataAtualizacao());
+			stm.setInt(4, post.getPostID());
+			System.out.println(post.getDataAtualizacao());
+			stm.execute();
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
 }

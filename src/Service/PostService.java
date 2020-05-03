@@ -39,4 +39,11 @@ public class PostService {
 	public boolean excluirPorId(int id) {
 		return postDAO.excluirPorId(id);
 	}
+	
+	public boolean atualizar(Post post) {
+		java.util.Date data = new java.util.Date();
+		java.sql.Date dataSql = new java.sql.Date(data.getTime());
+		post.setDataAtualizacao(dataSql);
+		return postDAO.atualizar(post);
+	}
 }

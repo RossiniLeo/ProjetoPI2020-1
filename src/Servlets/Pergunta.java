@@ -52,22 +52,16 @@ public class Pergunta extends HttpServlet {
 		String method = request.getParameter("method");
 		if(method.equals("DELETE"))
 			doDelete(request,response);
-		else if(method.equals("PUT"))
-			doPut(request,response);
 		
 	}
 	
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int id = (int) request.getSession().getAttribute("PostAtual");	
+		int id = ((Post) request.getSession().getAttribute("PostAtual")).getPostID();	
 				
 		boolean isDeleted = new PostService().excluirPorId(id);
 		
-		System.out.println(isDeleted);
+		request.getSession().setAttribute("PostAtual", null);
 		response.sendRedirect("perguntas.do");
-	}
-	
-	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.getWriter().append("Atualizar");
 	}
 
 }
