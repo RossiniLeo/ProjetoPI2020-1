@@ -174,5 +174,19 @@ public class PostDAO {
 		}
 		return post;
 	}
+	
+	public boolean excluirPorId(int id) {
+		String sqlRead = "DELETE FROM post WHERE postID = ?";
+		Post post = new Post();
+		try (Connection conn = ConnectionFactory.obtemConexao();
+				PreparedStatement stm = conn.prepareStatement(sqlRead);) {
+			stm.setInt(1, id);
+			stm.execute();
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
 
 }

@@ -16,5 +16,16 @@
 	Data: <%= post.getDataPost() %>
 	Feita por: <%= usuario.getNome() %>
 	
+	<%if(session.getAttribute("userID") != null && usuario.getUserID() == (int) session.getAttribute("userID")) {%>
+	<% session.setAttribute("PostAtual", post.getPostID()); %>
+		<form method='POST' action='pergunta.do'>
+	        <input type="hidden" name="method" value="DELETE">
+			<button type='submit'>Excluir</button>
+		</form>
+		<form method='POST' action='pergunta.do'>
+	        <input type='hidden' name='method' value='PUT'>
+			<button type='submit'>Atualizar</button>
+		</form>
+	<% } %>
 </body>
 </html>

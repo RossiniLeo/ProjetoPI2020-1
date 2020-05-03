@@ -49,7 +49,25 @@ public class Pergunta extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String method = request.getParameter("method");
+		if(method.equals("DELETE"))
+			doDelete(request,response);
+		else if(method.equals("PUT"))
+			doPut(request,response);
 		
+	}
+	
+	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int id = (int) request.getSession().getAttribute("PostAtual");	
+				
+		boolean isDeleted = new PostService().excluirPorId(id);
+		
+		System.out.println(isDeleted);
+		response.sendRedirect("perguntas.do");
+	}
+	
+	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.getWriter().append("Atualizar");
 	}
 
 }

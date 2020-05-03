@@ -35,4 +35,8 @@ public class PostService {
 	public Post carregarPorID(int id) {
 		return postDAO.carregarPorID(id);
 	}
+	
+	public boolean excluirPorId(int id) {
+		return postDAO.excluirPorId(id);
+	}
 }
