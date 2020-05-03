@@ -100,7 +100,6 @@ public class PostDAO {
 			stm.execute();
 			try(ResultSet rs = stm.executeQuery()) {
 				while(rs.next()){
-					System.out.println(rs.getInt("postID"));
 					Post post = new Post(
 							rs.getInt("postID"),
 							rs.getInt("userID"),
