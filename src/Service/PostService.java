@@ -32,4 +32,7 @@ public class PostService {
 		return postDAO.carregarPorParametro(pagina,parametroBusca);
 	}
 	
+	public Post carregarPorID(int id) {
+		return postDAO.carregarPorID(id);
+	}
 }

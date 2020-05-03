@@ -23,19 +23,20 @@
 	<% if(posts.size() > 0) { %>
 		<% for(Post post : posts){ %>
 			<div>
-				<a href=''><%=post.getTitulo()%></a> <br>
-				<% String[] palavras = post.getCorpo().split(" "); %>
-				<% String corpo = ""; %>
-				<% if(palavras.length > 10){ %>
-					<%for(int i = 0; i < 10;i++){ %>
-						<% corpo += " "+palavras[i]; %>
+				<a href='pergunta.do?id=<%= post.getPostID() %>'><%=post.getTitulo()%> <br>
+					<% String[] palavras = post.getCorpo().split(" "); %>
+					<% String corpo = ""; %>
+					<% if(palavras.length > 10){ %>
+						<%for(int i = 0; i < 10;i++){ %>
+							<% corpo += " "+palavras[i]; %>
+						<% } %>
+						<%= corpo %>...
+					<% }else{ %>
+						<% corpo = post.getCorpo(); %>
+						<%= corpo %>
 					<% } %>
-					<%= corpo %>...
-				<% }else{ %>
-					<% corpo = post.getCorpo(); %>
-					<%= corpo %>
-				<% } %>
-				<%= post.getDataPost() %>
+					<%= post.getDataPost() %>
+				</a>
 				<hr/>
 			</div>
 		<% } %>

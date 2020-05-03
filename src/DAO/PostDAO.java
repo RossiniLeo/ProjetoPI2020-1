@@ -147,5 +147,32 @@ public class PostDAO {
 		
 		return -1;
 	}
+	
+	public Post carregarPorID(int id) {
+		String sqlRead = "SELECT * FROM post WHERE postID = ?";
+		Post post = new Post();
+		try (Connection conn = ConnectionFactory.obtemConexao();
+				PreparedStatement stm = conn.prepareStatement(sqlRead);) {
+			stm.setInt(1, id);
+			stm.execute();
+			try(ResultSet rs = stm.executeQuery()) {
+				if(rs.next()){
+					post = new Post(
+							rs.getInt("postID"),
+							rs.getInt("userID"),
+							rs.getDate("dataPost"),
+							rs.getString("titulo"),
+							rs.getString("corpo")
+					);
+					return post;
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return post;
+	}
 
 }

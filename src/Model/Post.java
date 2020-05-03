@@ -10,6 +10,8 @@ public class Post {
 	private String titulo;
 	private String corpo;
 	
+	public Post() {}
+	
 	public Post(int userID, String titulo, String corpo) {
 		setUserID(userID);
 		setTitulo(titulo);
