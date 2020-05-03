@@ -29,20 +29,26 @@ public class Pergunta extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int id = Integer.parseInt(request.getParameter("id"));
+		int id = request.getParameter("id") == null ? -1 : Integer.parseInt(request.getParameter("id"));
 		
-		Post post = new PostService().carregarPorID(id);
+		if(id != -1) {
+			Post post = new PostService().carregarPorID(id);
+			
+			Usuario usuario = new UsuarioService().carregar(post.getUserID());
+			
+			usuario.setSenha(null);
+			
+			request.setAttribute("Post", post);
+			
+			request.setAttribute("Usuario", usuario);
+			
+			RequestDispatcher view = request.getRequestDispatcher("pergunta.jsp");
+			view.forward(request, response);
+			
+			return;
+		}
 		
-		Usuario usuario = new UsuarioService().carregar(post.getUserID());
-		
-		usuario.setSenha(null);
-		
-		request.setAttribute("Post", post);
-		
-		request.setAttribute("Usuario", usuario);
-		
-		RequestDispatcher view = request.getRequestDispatcher("pergunta.jsp");
-		view.forward(request, response);
+		response.sendRedirect("perguntas.do");
 	}
 
 	/**
