@@ -10,14 +10,16 @@
 </head>
 <body>
 
-	<form action='perguntas.do' method='GET'>
-		<input type ='text' autocomplete="off" name='busca'>
-		<button type='submit'>Buscar</button>
-	</form>
 	<% ArrayList<Post> posts = (ArrayList<Post>) request.getAttribute("Posts"); %>
 	<%int qtdPaginas =  (int) request.getAttribute("qtdPaginas"); %>
 	<%int paginaAtual = (int) request.getAttribute("pagina"); %>
 	<%String busca = request.getParameter("busca"); %>
+	
+	<form action='perguntas.do' method='GET'>
+		<input type ='text' autocomplete="off" name="busca" value="<%= busca == null ? "" : busca %>">
+		<button type='submit'>Buscar</button>
+	</form>
+	
 	<% if(posts.size() > 0) { %>
 		<% for(Post post : posts){ %>
 			<div>
