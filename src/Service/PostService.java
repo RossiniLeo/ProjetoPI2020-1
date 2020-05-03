@@ -24,4 +24,12 @@ public class PostService {
 		return postDAO.countPost();
 	}
 	
+	public int countPostPorParametro(String parametroBusca) {
+		return postDAO.countPostPorParametro(parametroBusca);
+	}
+	
+	public ArrayList<Post> carregarPorParametro(int pagina,String parametroBusca) {
+		return postDAO.carregarPorParametro(pagina,parametroBusca);
+	}
+	
 }

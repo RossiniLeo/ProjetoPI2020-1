@@ -77,5 +77,76 @@ public class PostDAO {
 		
 		return -1;
 	}
+	
+	public ArrayList<Post> carregarPorParametro(int pagina, String parametroBusca) {
+		String[] parametros = parametroBusca.split(" ");
+		int comeco = (pagina * 10) - 10;
+		ArrayList<Post> posts = new ArrayList<Post>();
+		String sqlRead = "SELECT * FROM post WHERE ";
+		String condicao = new String();
+		for(int i = 1;i<=parametros.length;i++) {
+			condicao +="titulo LIKE ?"+ (i==parametros.length ? " LIMIT ?,?" : " OR ");
+		}
+		sqlRead += condicao;
+		try (Connection conn = ConnectionFactory.obtemConexao();
+				PreparedStatement stm = conn.prepareStatement(sqlRead);) {
+			int i = 1;
+			for(String parametro : parametros) {
+				stm.setString(i, "%"+parametro.toUpperCase()+"%");
+				i++;
+			}
+			stm.setInt(i, comeco);
+			stm.setInt(++i, 10);
+			stm.execute();
+			try(ResultSet rs = stm.executeQuery()) {
+				while(rs.next()){
+					System.out.println(rs.getInt("postID"));
+					Post post = new Post(
+							rs.getInt("postID"),
+							rs.getInt("userID"),
+							rs.getDate("dataPost"),
+							rs.getString("titulo"),
+							rs.getString("corpo")
+					);
+					posts.add(post);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return posts;
+	}
+	
+	public int countPostPorParametro(String parametroBusca) {
+		String[] parametros = parametroBusca.split(" ");
+		String sqlCount = "SELECT COUNT(*) AS Contagem FROM post WHERE ";
+		String condicao = new String();
+		for(int i = 1;i<=parametros.length;i++) {
+			condicao +="titulo LIKE ?"+ (i==parametros.length ? "" : " OR ");
+		}
+		sqlCount += condicao;
+		try(Connection conn = ConnectionFactory.obtemConexao();
+			PreparedStatement stm = conn.prepareStatement(sqlCount);){
+			int i = 1;
+			for(String parametro : parametros) {
+				stm.setString(i, "%"+parametro.toUpperCase()+"%");
+				i++;
+			}
+			stm.execute();
+			try(ResultSet rs = stm.executeQuery();){
+				if(rs.next()) {
+					return rs.getInt("Contagem");
+				}
+			}catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return -1;
+	}
 
 }

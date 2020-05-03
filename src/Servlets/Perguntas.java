@@ -34,14 +34,26 @@ public class Perguntas extends HttpServlet {
 		// TODO Auto-generated method stub
 		response.setCharacterEncoding("UTF-8");
 		String paginaParam = request.getParameter("pagina");
-		
+		String busca = request.getParameter("busca");
 		int pagina = paginaParam == null ? 1 : Integer.parseInt(paginaParam);
 		
 		request.setAttribute("pagina",pagina);
-
-		ArrayList<Post> posts = new PostService().carregar(pagina);
+		
+		int todasPaginas;
+		ArrayList<Post> posts;
+		
+		if(busca == null) {
+			posts = new PostService().carregar(pagina);
+			todasPaginas = new PostService().countPosts();
+		}
+		else {
+			posts = new PostService().carregarPorParametro(pagina,busca);
+			todasPaginas = new PostService().countPostPorParametro(busca);
+			System.out.println(todasPaginas);
+		}
+		
 		request.setAttribute("Posts", posts);
-		int todasPaginas = new PostService().countPosts();
+		
 		
 		if(todasPaginas % 10 != 0)
 			todasPaginas += 10;
