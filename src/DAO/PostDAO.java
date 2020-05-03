@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import Model.Post;
 
@@ -31,6 +32,52 @@ public class PostDAO {
 			e.printStackTrace();
 		}
 		return post.getPostID();
+	}
+	
+	public ArrayList<Post> carregar(int pagina) {
+		int comeco = (pagina * 10) - 10;
+		System.out.println("Começo: "+comeco);
+		ArrayList<Post> posts = new ArrayList<Post>();
+		String sqlRead = "SELECT * FROM post LIMIT ?,?";
+		try (Connection conn = ConnectionFactory.obtemConexao();
+				PreparedStatement stm = conn.prepareStatement(sqlRead);) {
+			stm.setInt(1, comeco);
+			stm.setInt(2, 10);
+			stm.execute();
+			try(ResultSet rs = stm.executeQuery()) {
+				while(rs.next()){
+					System.out.println(rs.getInt("postID"));
+					Post post = new Post(
+							rs.getInt("postID"),
+							rs.getInt("userID"),
+							rs.getDate("dataPost"),
+							rs.getString("titulo"),
+							rs.getString("corpo")
+					);
+					posts.add(post);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return posts;
+	}
+	
+	public int countPost() {
+		String sqlCount = "SELECT COUNT(*) AS Contagem FROM post";
+		try(Connection conn = ConnectionFactory.obtemConexao();
+			PreparedStatement stm = conn.prepareStatement(sqlCount);
+				ResultSet rs = stm.executeQuery();){
+			if(rs.next()) {
+				return rs.getInt("Contagem");
+			}
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return -1;
 	}
 
 }

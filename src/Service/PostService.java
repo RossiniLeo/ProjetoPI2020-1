@@ -1,6 +1,9 @@
 package Service;
 
 import Model.Post;
+
+import java.util.ArrayList;
+
 import DAO.PostDAO;
 
 public class PostService {
@@ -12,4 +15,13 @@ public class PostService {
 		post.setDataPost(dataSql);
 		return postDAO.criar(post);
 	}
+	
+	public ArrayList<Post> carregar(int pagina) {
+		return postDAO.carregar(pagina);
+	}
+	
+	public int countPosts() {
+		return postDAO.countPost();
+	}
+	
 }

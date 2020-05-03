@@ -15,6 +15,14 @@ public class Post {
 		setTitulo(titulo);
 		setCorpo(corpo);
 	}
+	
+	public Post(int postID, int userID, Date dataPost,String titulo, String corpo) {
+		setPostID(postID);
+		setUserID(userID);
+		setDataPost(dataPost);
+		setTitulo(titulo);
+		setCorpo(corpo);
+	}
 
 	public int getPostID() {
 		return postID;
