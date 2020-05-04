@@ -83,4 +83,20 @@ public class ComentarioDAO {
 		return -1;
 	}
 
+	public int atualizar(Comentario comentario) {
+		String sqlUpdate = "UPDATE comentarios SET comentario = ?, dataAtualizacao = ? WHERE comentarioID = ? AND userID = ?";
+		try (Connection conn = ConnectionFactory.obtemConexao();
+				PreparedStatement stm = conn.prepareStatement(sqlUpdate);) {
+			stm.setString(1, comentario.getComentario());
+			stm.setDate(2, comentario.getDataAtualizacao());
+			stm.setInt(3, comentario.getComentarioID());
+			stm.setInt(4,comentario.getUserID());
+			stm.execute();
+			System.out.println("Comentario id:" + comentario.getComentarioID());
+			return 1;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return -1;
+	}
 }

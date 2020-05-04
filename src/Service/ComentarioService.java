@@ -22,5 +22,12 @@ public class ComentarioService {
 		comentario.setDataComentario(dataSql);
 		return comentarioDAO.criar(comentario);
 	}
+	
+	public int atualizar(Comentario comentario) {
+		java.util.Date data = new java.util.Date();
+		java.sql.Date dataSql = new java.sql.Date(data.getTime());
+		comentario.setDataAtualizacao(dataSql);
+		return comentarioDAO.atualizar(comentario);
+	}
 
 }

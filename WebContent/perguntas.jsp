@@ -15,12 +15,18 @@
 	<%int paginaAtual = (int) request.getAttribute("pagina"); %>
 	<%String busca = request.getParameter("busca"); %>
 	
-	<form action='perguntas.do' method='GET'>
-		<input type ='text' autocomplete="off" name="busca" value="<%= busca == null ? "" : busca %>">
-		<button type='submit'>Buscar</button>
-	</form>
+	<!-- BUSCA DE PERGUNTAS -->
+	<div>
+		<form action='perguntas.do' method='GET'>
+			<input type ='text' autocomplete="off" name="busca" value="<%= busca == null ? "" : busca %>">
+			<button type='submit'>Buscar</button>
+		</form>
+	</div>
 	
 	<% if(posts.size() > 0) { %>
+	
+	<!-- TODAS AS PERGUNTAS -->
+	<div id='perguntas'>
 		<% for(Post post : posts){ %>
 			<div>
 				<a href='pergunta.do?id=<%= post.getPostID() %>'><%=post.getTitulo()%> <br>
@@ -40,6 +46,10 @@
 				<hr/>
 			</div>
 		<% } %>
+	</div>
+	
+	<!-- PAGINAS -->
+	<div id = 'paginas'>
 		<% if(paginaAtual > 10){ %>
 			<%int comeco = ((paginaAtual/10) * 10); %>
 			<%boolean validacao = qtdPaginas/10 == paginaAtual/10; %>
@@ -53,6 +63,7 @@
 				<% } %>
 			<% } %>
 		<% } %>
+	</div>
 	<% }else{ %>
 		Não exite pergunta relacionado a "<%= busca %>"
 	<%} %>
