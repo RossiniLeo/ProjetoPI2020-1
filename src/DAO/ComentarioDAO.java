@@ -11,6 +11,30 @@ import Model.Post;
 
 public class ComentarioDAO {
 	
+	public Comentario criar(Comentario comentario) {
+		String sqlInsert = "INSERT INTO comentarios VALUES(null, ?, ?, ?, ?, null)";
+		try (Connection conn = ConnectionFactory.obtemConexao();
+				PreparedStatement stm = conn.prepareStatement(sqlInsert);) {
+			stm.setInt(1, comentario.getPostID());
+			stm.setInt(2, comentario.getUserID());
+			stm.setDate(3, comentario.getDataComentario());
+			stm.setString(4, comentario.getComentario());
+			stm.execute();
+			String sqlQuery  = "SELECT LAST_INSERT_ID()";
+			try(PreparedStatement stm2 = conn.prepareStatement(sqlQuery);
+				ResultSet rs = stm2.executeQuery();) {
+				if(rs.next()){
+					comentario.setComentarioID(rs.getInt(1));
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return comentario;
+	}
+	
 	public ArrayList<Comentario> carregar(int pagina, int postID){
 		int comeco = (pagina * 10) - 10;
 		ArrayList<Comentario> comentarios = new ArrayList<Comentario>();

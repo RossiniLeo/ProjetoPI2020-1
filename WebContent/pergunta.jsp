@@ -51,7 +51,9 @@
 	<% } %>
 	<%if(userID != -1){ %>
 		<form action='adicionarcomentario.do' method='POST'>
+			<input type='hidden' value='<%=post.getPostID()%>' name='postID'>
 			Comentario: <textarea name='comentario' rows='3' cols='50'></textarea>
+			<button type = 'submit'>Enviar</button>
 		</form>
 	<% } %>
 	

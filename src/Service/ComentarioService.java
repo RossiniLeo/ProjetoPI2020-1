@@ -15,5 +15,12 @@ public class ComentarioService {
 	public int countComentario(int postID){
 		return comentarioDAO.countComentario(postID);
 	}
+	
+	public Comentario criar(Comentario comentario) {
+		java.util.Date data = new java.util.Date();
+		java.sql.Date dataSql = new java.sql.Date(data.getTime());
+		comentario.setDataComentario(dataSql);
+		return comentarioDAO.criar(comentario);
+	}
 
 }

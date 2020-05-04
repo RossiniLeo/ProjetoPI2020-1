@@ -21,6 +21,12 @@ public class Comentario {
 		setDataAtualizacao(dataAtualizacao);
 	}
 	
+	public Comentario( int postID, int userID, String comentario) {
+		setPostID(postID);
+		setUserID(userID);
+		setComentario(comentario);
+	}
+	
 	public int getComentarioID() {
 		return comentarioID;
 	}
