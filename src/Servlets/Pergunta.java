@@ -91,19 +91,13 @@ public class Pergunta extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String method = request.getParameter("method");
-		if(method.equals("DELETE"))
-			doDelete(request,response);
-		
-	}
-	
-	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int id = ((Post) request.getSession().getAttribute("PostAtual")).getPostID();	
-				
+		
 		boolean isDeleted = new PostService().excluirPorId(id);
 		
 		request.getSession().setAttribute("PostAtual", null);
 		response.sendRedirect("perguntas.do");
+		
 	}
 
 }

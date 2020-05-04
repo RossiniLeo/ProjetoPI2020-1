@@ -99,4 +99,18 @@ public class ComentarioDAO {
 		}
 		return -1;
 	}
+	
+	public boolean excluirPorId(int id, int userID) {
+		String sqlDelete = "DELETE FROM comentarios WHERE comentarioID = ? AND userID = ?";
+		try (Connection conn = ConnectionFactory.obtemConexao();
+				PreparedStatement stm = conn.prepareStatement(sqlDelete);) {
+			stm.setInt(1, id);
+			stm.setInt(2, userID);
+			stm.execute();
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
 }

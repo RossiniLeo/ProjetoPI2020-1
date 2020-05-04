@@ -17,6 +17,7 @@
 	<%String[][] comentarioUsuario = (String[][]) request.getAttribute("comentarioUsuario"); %>
 	<% Post post = (Post) request.getAttribute("Post"); %>
 	<% Usuario usuario = (Usuario) request.getAttribute("Usuario"); %>
+	<% session.setAttribute("postID", post.getPostID()); %>
 	
 	<!-- PERGUNTA -->  
 	<div id='pergunta'>
@@ -29,7 +30,7 @@
 		<% } %>
 		<%if(session.getAttribute("userID") != null && usuario.getUserID() == (int) session.getAttribute("userID")) {%>
 			<% session.setAttribute("PostAtual", post); %>
-			<!-- Opções de alteração e de exclusão de produtos! -->
+			<!-- Opções de alteração e de exclusão de perguntas! -->
 			<div id='excluirOuAltrear'>
 				<form method='POST' action='pergunta.do'>
 			        <input type="hidden" name="method" value="DELETE">
@@ -58,6 +59,7 @@
 				Por: <%= usuarioNome %>
 			</div>
 			<%if(comentario.getUserID() == userID){ %>
+			
 			<!-- Exclusão e inclusão de comentarios -->
 			<div id="formAtualizarComentario<%= comentario.getComentarioID() %>" style='display:none;'>
 				<form action="atualizarcomentario.do" method="POST" >
@@ -67,11 +69,11 @@
 				</form>
 			</div>
 				<div>
-					<form method='POST' action='pergunta.do'>
+					<form method='POST' action='excluircomentario.do'>
 				        <input type="hidden" name="comentarioID" value="<%= comentario.getComentarioID() %>">
 						<button type="submit">Excluir</button>
 					</form>
-					<button type="submit" id='btnAtualizar' name="<%= comentario.getComentarioID() %>">Atualizar</button>
+					<button type="submit" class='btnAtualizar' name="<%= comentario.getComentarioID() %>">Atualizar</button>
 				</div>
 			<% } %>
 		</div>
@@ -103,7 +105,7 @@
 	</div>
 	
 	<script>
-		$("#btnAtualizar").click(function(){
+		$(".btnAtualizar").click(function(){
 			var id = $(this).attr("name");
 			console.log("teste");
 			$("#comentarioInfo"+id).css("display","none");

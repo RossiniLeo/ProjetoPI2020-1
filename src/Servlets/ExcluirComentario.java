@@ -7,20 +7,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import Model.Comentario;
+import Model.Post;
 import Service.ComentarioService;
+import Service.PostService;
 
 /**
- * Servlet implementation class AtualizarComentario
+ * Servlet implementation class ExcluirComentario
  */
-@WebServlet("/atualizarcomentario.do")
-public class AtualizarComentario extends HttpServlet {
+@WebServlet("/excluircomentario.do")
+public class ExcluirComentario extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AtualizarComentario() {
+    public ExcluirComentario() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,29 +30,24 @@ public class AtualizarComentario extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
-		int userID = request.getSession().getAttribute("userID") == null ? -1 : (int) request.getSession().getAttribute("userID");
 		int comentarioID = request.getParameter("comentarioID") == null ? -1 : Integer.parseInt(request.getParameter("comentarioID"));
-		String comentario = request.getParameter("comentario");
+		int userID = request.getSession().getAttribute("userID") == null ? -1 : (int) request.getSession().getAttribute("userID");
 		int postID = (int) request.getSession().getAttribute("postID");
+		System.out.println("comentario: "+comentarioID);
+		System.out.println("usuario: "+userID);
+		System.out.println("post: "+postID);
 		
-		if(comentario != null) {
-			Comentario comentarioUpdate = new Comentario();
-			comentarioUpdate.setUserID(userID);
-			comentarioUpdate.setComentarioID(comentarioID);
-			comentarioUpdate.setComentario(comentario);
-			
-			int isUpdated = new ComentarioService().atualizar(comentarioUpdate);
-			
-			response.sendRedirect("pergunta.do?id="+postID);
-		}
+		boolean isDeleted = new ComentarioService().excluirPorId(comentarioID,userID);
 		
+		response.sendRedirect("pergunta.do?id="+postID);
 	}
 
 }

@@ -29,5 +29,9 @@ public class ComentarioService {
 		comentario.setDataAtualizacao(dataSql);
 		return comentarioDAO.atualizar(comentario);
 	}
+	
+	public boolean excluirPorId(int id, int userID) {
+		return comentarioDAO.excluirPorId(id, userID);
+	}
 
 }
