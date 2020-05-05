@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE HTML>
 <html>
 	<head>
@@ -23,7 +25,8 @@
 	<!-- Header -->
 		<div id="header">
 			<div class="container">
-
+				<% int userID = session.getAttribute("userID") == null ? -1 : (int) session.getAttribute("userID");%>
+				<%String nome = (String) session.getAttribute("nome"); %>
 				<!-- Logo -->
 					<div id="logo">
 						<h1><a href="#">COVID Fórum</a></h1>
@@ -35,8 +38,13 @@
 							<li class="active"><a href="index.html">Home</a></li>
 							<li><a href="perguntas.do">Faça sua pergunta</a></li>
 							<li><a href="faq.html">FAQ</a></li>
-							<li><a href="session.do">Entrar</a></li>
-							<li><a href="cadastro.do">Cadastrar</a></li>
+							<%if(userID ==-1){ %>
+								<li><a href="session.do">Entrar</a></li>
+								<li><a href="cadastro.do">Cadastrar</a></li>
+							<% }else{ %>
+								<li><a href="session.do">Acesse o perfil</a></li>
+								<li>Olá, <%= nome %></li>
+							<% } %>
 						</ul>
 					</nav>
 
@@ -48,7 +56,7 @@
 		<div id="banner">
 			<div class="container">
 				<h2 class="display-3 font-weight-bold text-left" style="color: #000; font-size: 36px;">Saiba como está a situação do COVID-19</h2>
-				<button class="btn btn-danger botao" href="https://covid19.who.int">Acompanhe aqui</button>
+				<a class="btn btn-danger botao" href="https://covid19.who.int">Acompanhe aqui</a>
 			</div>
 		</div>
 	<!-- /Banner -->
