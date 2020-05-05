@@ -11,6 +11,7 @@ public class UsuarioService {
 	private UsuarioDAO usuarioDao = new UsuarioDAO();
 	
 	public int criar(Usuario usuario) {
+		usuario.setSenha(convertMD5(usuario.getSenha()));
 		return usuarioDao.criar(usuario);
 	}
 	

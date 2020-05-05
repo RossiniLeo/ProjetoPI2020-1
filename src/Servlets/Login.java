@@ -31,7 +31,7 @@ public class Login extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
-		RequestDispatcher view = request.getRequestDispatcher(request.getSession().getAttribute("userID") == null ? "index.jsp" : "perfil.jsp");
+		RequestDispatcher view = request.getRequestDispatcher(request.getSession().getAttribute("userID") == null ? "login.jsp" : "perfil.jsp");
 		view.forward(request, response);
 	}
 
@@ -53,7 +53,7 @@ public class Login extends HttpServlet {
 			request.setAttribute("errors", "Combinação incorreta");
 		}	
 		
-		RequestDispatcher view = request.getRequestDispatcher( isLogin ? "perfil.jsp" : "index.jsp");
+		RequestDispatcher view = request.getRequestDispatcher( isLogin ? "perfil.jsp" : "login.jsp");
 		view.forward(request, response);
 		
 	}
